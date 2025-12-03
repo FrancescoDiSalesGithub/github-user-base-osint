@@ -46,7 +46,9 @@ else:
     target_dir = sys.argv[1]
     number_of_users = sys.argv[2]
 
-
+    if not target_dir.endswith("/"):
+        target_dir = sys.argv[1]+"/"
+        
     for i in range(0,int(number_of_users)):
 
         try:
