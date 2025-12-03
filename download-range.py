@@ -40,7 +40,7 @@ functions_dictionary = {
 
 
 if len(sys.argv) != 4:
-    print("python3 download.py '/my/dir' 1000 2000")
+    print("python3 download-range.py '/my/dir' 1000 2000")
 else:
 
     target_dir = sys.argv[1]
