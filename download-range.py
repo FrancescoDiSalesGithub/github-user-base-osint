@@ -47,6 +47,9 @@ else:
     number_of_users = sys.argv[2]
     number_of_users_end = sys.argv[3]
 
+    if not target_dir.endswith("/"):
+        target_dir = sys.argv[1] + "/"
+    
     if(number_of_users > number_of_users_end):
         print("the range is invalid please check your arguments")
         print("python3 download.py '/my/dir' 1000 2000")
@@ -58,8 +61,8 @@ else:
             print("[+] - downloading user id: {}".format(i));
             picture = requests.get("https://avatars.githubusercontent.com/u/{}?v=4".format(i))
 
-            content_type=picture.headers.get("Content-Type");
-
+            content_type=picture.headers.get("Content-Type")
+            
             if content_type in functions_dictionary:
                 functions_dictionary[content_type](target_dir,i)
             else:
