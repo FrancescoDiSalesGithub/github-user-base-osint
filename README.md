@@ -4,33 +4,27 @@ Script that uses an IDOR on avatars.githubusercontent.com to retrieve user profi
 
 # Summary
 
-* Introduction
-* How to run
-* How to run using range script
+* How it was easy to retrieve the images directly by using the IDOR
 
-# Introduction
+# How it was easy to retrieve the images directly by using the IDOR
 
-This script uses an idor to download all the user pics from github. If you want to know the making of of this program check:
-
-* making-of/binary
-* making-of/network
-
-The first branch is about an old implementation by downloading the files without extensions and guessing it reading the file header.
-The second instead is more simple by extracting the header Content-Type from the response,
-
-# How to run
-Just run the download script as the following:
-
+Using the  verbose command curl on:
 ```
-python3 download.py '/download/directory' 500
+https://avatars.githubusercontent.com/u/17337009?v=4
 ```
 
-With this statement, the script will download the first 500 users on github.
+I had the following output:
+```
+curl -vv https://avatars.githubusercontent.com/u/17337009?v=4
 
-# How to run using range script
+...SNIP...
+19:05:47.077041 [0-0] < cache-control: max-age=300
+19:05:47.077130 [0-0] * [HTTP/2] [1] header: cache-control: max-age=300
+19:05:47.077221 [0-0] < content-security-policy: default-src 'none'
+19:05:47.077308 [0-0] * [HTTP/2] [1] header: content-security-policy: default-src 'none'
+19:05:47.077398 [0-0] < content-type: image/jpeg
+19:05:47.077484 [0-0] * [HTTP/2] [1] header: content-type: image/jpeg <-- this is what i want
 
 ```
- python3 download-range.py '/download/directory' 1000 2000
-```
 
-The instruction will download all the users between range 1000 and 2000
+From there using request I would catch that header and enumerating the possible file format.
